@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+            margin: 0;
+            background-image: linear-gradient(to right, #020f02, #19a90f);
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        section {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 20px;
+            height: 220px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            background-color: #f0f8ff;
+        }
+        .btn1, .btn2 {
+            height: 40px;
+            width: 120px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .copy {
+            margin-top: 15px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #e0f7fa;
+            font-size: 1rem;
+        }
+        .copy:hover {
+            background-color: #b2ebf2;
+        }
+        p {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Code Generator</title>
+</head>
+<body>
+    <section>
+        <div>
+            <button class="btn1">#19a90f</button>
+            <button class="btn2">#020f02</button>
+        </div>
+        <p>Copy the code:</p>
+        <div class="copy">
+            <p>background-image: linear-gradient(to right, #020f02, #19a90f);</p>
+        </div>
+    </section>
+    <script>
+        const arr = "0123456789abcdef";
+        let colourCode1 = '#19a90f';
+        let colourCode2 = '#020f02';
+
+        function randomColour() {
+            let colourCode = '';
+            for (let i = 0; i < 6; i++) {
+                const random = Math.floor(Math.random() * 16);
+                colourCode += arr[random];
+            }
+            return '#' + colourCode;
+        }
+
+        const btn1 = document.querySelector('.btn1');
+        const btn2 = document.querySelector('.btn2');
+
+        btn1.addEventListener('click', function () {
+            colourCode1 = randomColour();
+            btn1.innerHTML = colourCode1;
+            btn1.style.background = colourCode1;
+            updateBackground();
+        });
+
+        btn2.addEventListener('click', function () {
+            colourCode2 = randomColour();
+            btn2.innerHTML = colourCode2;
+            btn2.style.background = colourCode2;
+            updateBackground();
+        });
+
+        function updateBackground() {
+            document.body.style.backgroundImage = `linear-gradient(to right, ${colourCode1}, ${colourCode2})`;
+            document.querySelector('.copy p').innerHTML = `background-image: linear-gradient(to right, ${colourCode1}, ${colourCode2});`;
+        }
+
+        const copytext = document.querySelector('.copy');
+        copytext.addEventListener("click", () => {
+            navigator.clipboard.writeText(copytext.textContent).then(() => {
+                alert("Copied to clipboard!");
+            });
+        });
+    </script>
+</body>
+</html>
